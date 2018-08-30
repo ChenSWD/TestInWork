@@ -1,2 +1,2 @@
 # InB
-gradle eclipse中打开
+gradle工程 eclipse中打开
