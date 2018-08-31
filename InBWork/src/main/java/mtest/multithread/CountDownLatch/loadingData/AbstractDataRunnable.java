@@ -22,6 +22,7 @@ public abstract class AbstractDataRunnable implements Runnable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			//调用countDown()方法计数减一
 			count.countDown();
 		}
 		afterCountDown();

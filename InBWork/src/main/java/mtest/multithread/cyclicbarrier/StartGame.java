@@ -16,8 +16,10 @@ public class StartGame implements Runnable {
 		try {
 			System.out.println(this.getPlayer() + " 开始匹配玩家...");
 			findOtherPlayer();
+			//调用await()方法计数减一，若减一后的值不等于0，则线程阻塞
+			//计数达到0时，计数置为传入的值重新开始
 			barrier.await();
-
+			
 			System.out.println(this.getPlayer() + " 进行选择角色...");
 			choiceRole();
 			System.out.println(this.getPlayer() + " 角色选择完毕等待其他玩家...");

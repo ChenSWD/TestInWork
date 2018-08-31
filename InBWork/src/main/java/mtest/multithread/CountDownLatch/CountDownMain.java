@@ -19,6 +19,8 @@ public class CountDownMain {
 			try {
 				System.out.println("开始加载基础数据...");
 				Long l1 = System.currentTimeMillis();
+				//在count变为0的时候解除阻塞
+				//调用await()方法只进行阻塞，对计数没任何影响
 				count.await();
 				Long l2 = System.currentTimeMillis();
 				System.out.println("基础数据加载完毕，总共花费时长:" + (l2 - l1) + ".可以开始游戏...");
