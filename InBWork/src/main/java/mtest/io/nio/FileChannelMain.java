@@ -1,11 +1,15 @@
 package mtest.io.nio;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
+import java.nio.channels.Channel;
+import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
@@ -31,7 +35,7 @@ public class FileChannelMain {
 			ByteBuffer bb = ByteBuffer.allocate(64);
 
 			/* 向ByteBuffer中放入字符串UTF-8的字节, position = 17, limit = 64 */
-			bb.put("Hello,World 123 \n".getBytes("utf-8"));
+			bb.put("Hello,World 123 \n".getBytes("gbk"));
 
 			System.out.println("pos = " + bb.position() + " lim = " + bb.limit());
 			/* flip方法 position = 0, limit = 17 将写模式转换成读模式 */
@@ -44,7 +48,7 @@ public class FileChannelMain {
 			bb.clear();
 
 			/* 下面的代码同理 */
-			bb.put("你好，世界 456".getBytes("utf-8"));
+			bb.put("你好，世界 456\n".getBytes("gbk"));
 			bb.flip();
 
 			fc.write(bb);
@@ -68,7 +72,7 @@ public class FileChannelMain {
 
 			ByteBuffer bb = ByteBuffer.allocate((int) fc.size() + 1);
 
-			Charset utf8 = Charset.forName("utf-8");
+			Charset utf8 = Charset.forName("gbk");
 
 			/* 阻塞模式，读取完成才能返回 */
 			fc.read(bb);
@@ -82,6 +86,27 @@ public class FileChannelMain {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		{
+			try {
+				FileInputStream in = new FileInputStream(
+						new File("src\\\\main\\\\java\\\\mtest\\\\io\\\\nio\\\\nio.txt"));
+				FileChannel channel = in.getChannel();
+				ByteBuffer bb = ByteBuffer.allocate((int) channel.size());
+				Charset utf8 = Charset.forName("gbk");
+				channel.read(bb);
+				bb.flip();
+				CharBuffer cc = utf8.decode(bb);
+				System.out.println(cc.toString());
+				bb.clear();
+				channel.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }

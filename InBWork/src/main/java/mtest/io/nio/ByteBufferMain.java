@@ -28,7 +28,7 @@ public class ByteBufferMain {
 		 
 		/*对获取utf8的编解码器*/
 		Charset utf81 = Charset.forName("UTF-8");
-		ByteBuffer byteBuffer1 = utf81.encode(charBuffer1); /*对charbuffer中的内容解码*/
+		ByteBuffer byteBuffer1 = utf81.encode(charBuffer1); /*对charbuffer中的内容编码*/
 		 
 		/*array()返回的就是内部的数组引用，编码以后的有效长度是0~limit*/
 		byte[] bytes = Arrays.copyOf(byteBuffer1.array(), byteBuffer1.limit());

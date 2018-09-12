@@ -64,8 +64,10 @@ public class ServiceSocketChannelDemo {
 
 				while (!Thread.currentThread().isInterrupted()) {
 
-					int n = selector.select();
+					// select() —— 阻塞到至少有一个通道在你注册的事件上就绪了
+					int n = selector.select(3000);
 					if (n == 0) {
+						System.out.println("等待请求超时......");
 						continue;
 					}
 
@@ -81,6 +83,11 @@ public class ServiceSocketChannelDemo {
 
 						/* 若发现异常，说明客户端连接出现问题,但服务器要保持正常 */
 						try {
+							/*
+							 * 通道触发了一个事件意思是该事件已经就绪。所以，某个channel成功连接到另一个服务器称为”连接就绪“。 一个server socket
+							 * channel准备号接收新进入的连接称为”接收就绪“。 一个有数据可读的通道可以说是”读就绪“。等代写数据的通道可以说是”写就绪“。
+							 */
+
 							/* ssc通道只能对链接事件感兴趣 */
 							if (key.isAcceptable()) {
 
@@ -88,10 +95,12 @@ public class ServiceSocketChannelDemo {
 								 * accept方法会返回一个普通通道， 每个通道在内核中都对应一个socket缓冲区
 								 */
 								SocketChannel sc = ssc.accept();
+								// 设置通道为非阻塞
 								sc.configureBlocking(false);
 
 								/* 向选择器注册这个通道和普通通道感兴趣的事件，同时提供这个新通道相关的缓冲区 */
 								int interestSet = SelectionKey.OP_READ;
+								//客户端和服务端各维护读写两个buffer(Buffers)
 								sc.register(selector, interestSet, new Buffers(256, 256));
 
 								System.out.println("accept from " + sc.getRemoteAddress());
@@ -99,7 +108,6 @@ public class ServiceSocketChannelDemo {
 
 							/* （普通）通道感兴趣读事件且有数据可读 */
 							if (key.isReadable()) {
-
 								/* 通过SelectionKey获取通道对应的缓冲区 */
 								Buffers buffers = (Buffers) key.attachment();
 								ByteBuffer readBuffer = buffers.getReadBuffer();
@@ -132,7 +140,6 @@ public class ServiceSocketChannelDemo {
 
 							/* 通道感兴趣写事件且底层缓冲区有空闲 */
 							if (key.isWritable()) {
-
 								Buffers buffers = (Buffers) key.attachment();
 
 								ByteBuffer writeBuffer = buffers.gerWriteBuffer();

@@ -35,7 +35,7 @@ public class ClientSocketChannelMain {
 
 			/* 创建解码器 */
 			Charset utf8 = Charset.forName("UTF-8");
-
+			
 			Selector selector;
 
 			try {
@@ -52,7 +52,7 @@ public class ClientSocketChannelMain {
 				/* 注册感兴趣事件 */
 				int interestSet = SelectionKey.OP_READ | SelectionKey.OP_WRITE;
 
-				/* 向选择器注册通道 */
+				/* 向选择器注册通道  客户端和服务端各维护读写两个buffer(Buffers)*/
 				sc.register(selector, interestSet, new Buffers(256, 256));
 
 				/* 向服务器发起连接,一个通道代表一条tcp链接 */

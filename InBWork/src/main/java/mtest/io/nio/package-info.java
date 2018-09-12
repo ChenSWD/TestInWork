@@ -9,5 +9,13 @@
  * 
  * 在文件通道中read和write方法都是阻塞的，对于read方法，除非遇到文件结束，否则会把缓冲区的剩余空间读满再返回。
  * 对于write方法，会一次性把缓冲区中的内容全部写入到文件中才会返回。
+ * 
+ * 1.FileChannel：从文件中读写数据。
+ * 
+ * 2.DatagramChannel：能通过UDP读写网络中的数据。
+ * 
+ * 3.SocketChannel：能通过TCP读写网络中的数据。
+ * 
+ * 4.ServerSocketChannel：可以监听新近来的TCP协议，像Web服务器一样。对每个新进来的连接都会创建一个SocketChannel。
  */
 package mtest.io.nio;
