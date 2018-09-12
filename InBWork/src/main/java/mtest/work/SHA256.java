@@ -27,7 +27,7 @@ public class SHA256 {
 						buf.append(tempStr);
 					}
 				}
-				if (buf.toString().toLowerCase().substring(0,4).equals("a8c0")) {
+				if (buf.toString().toLowerCase().substring(0, 4).equals("a8c0")) {
 					flag = false;
 					System.out.println(buf.toString().toLowerCase() + " number = " + number + " ³É¹¦");
 				} else {

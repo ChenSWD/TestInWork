@@ -13,6 +13,7 @@ public class ReleaseApkRename {
 		replacementChain.addRegulation("合成 1", "shouhu");
 		ReleaseApkRename.multiRename("F:\\文件名修改", replacementChain);
 	}
+
 	public static void multiRename(String path, ReplacementChain replacementChain) {
 		File file = new File(path);
 		boolean isDirectory = file.isDirectory();
@@ -22,14 +23,14 @@ public class ReleaseApkRename {
 			System.out.println(path + "不是一个文件夹！");
 			return;
 		}
-		
+
 		String[] files = file.list();
 		File f = null;
 		String filename = "";
 		String oldFileName = ""; // 之前的名字
 		/** 循环遍历所有文件* */
 		for (String fileName : files) {
-			
+
 			oldFileName = fileName;
 			System.out.println(oldFileName);
 			Map<String, String> map = replacementChain.getMap();

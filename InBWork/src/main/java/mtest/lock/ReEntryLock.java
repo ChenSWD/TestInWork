@@ -8,7 +8,8 @@ public class ReEntryLock {
 
 	public synchronized void lock() throws InterruptedException {
 		Thread currentThread = Thread.currentThread();
-//		System.out.println("currentThread = " + currentThread + " thread = " + thread);
+		// System.out.println("currentThread = " + currentThread + " thread = " +
+		// thread);
 		while (isLock && currentThread != thread) {
 			wait();
 		}

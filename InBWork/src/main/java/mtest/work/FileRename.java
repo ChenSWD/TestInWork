@@ -14,13 +14,13 @@ import java.util.Map.Entry;
 public class FileRename {
 
 	public static void main(String[] args) {
-//		ReplacementChain replacementChain = new ReplacementChain();
-//		replacementChain.addRegulation("_xx.", ".");
-//		FileRename.multiRename("F:\\文件名修改", replacementChain);
-		//下面給release包重命名
+		// ReplacementChain replacementChain = new ReplacementChain();
+		// replacementChain.addRegulation("_xx.", ".");
+		// FileRename.multiRename("F:\\文件名修改", replacementChain);
+		// 下面給release包重命名
 		ReplacementChain replacementChain = new ReplacementChain();
 		replacementChain.addRegulation("_unsigned_signed", "");
-		FileRename.reNameReleaseApk("F:\\文件名修改", replacementChain,"3Dbobo_V5.12.3.");
+		FileRename.reNameReleaseApk("F:\\文件名修改", replacementChain, "3Dbobo_V5.12.3.");
 	}
 
 	public static void multiRename(String path, ReplacementChain replacementChain) {
@@ -49,11 +49,12 @@ public class FileRename {
 			f = new File(path + "\\" + oldFileName); // 输出地址和原路径保持一致
 			f.renameTo(new File(path + "\\" + fileName));
 		}
-	
+
 		System.out.println("恭喜，批量重命名成功！");
 	}
-	//給apk重命名
-	public static void reNameReleaseApk(String path,ReplacementChain replacementChain,String addString) {
+
+	// 給apk重命名
+	public static void reNameReleaseApk(String path, ReplacementChain replacementChain, String addString) {
 		File file = new File(path);
 		boolean isDirectory = file.isDirectory();
 

@@ -10,24 +10,18 @@ public class Main {
 
 	private static class Test {
 		NotReEntryLock lock = new NotReEntryLock();
-//		ReEntryLock lock = new ReEntryLock();
+		// ReEntryLock lock = new ReEntryLock();
 
 		public void print() throws InterruptedException {
 			System.out.println("print");
 			lock.lock();
-		/*	new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					try {
-						doAdd();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}).start();*/
+			/*
+			 * new Thread(new Runnable() {
+			 * 
+			 * @Override public void run() { // TODO Auto-generated method stub try {
+			 * doAdd(); } catch (InterruptedException e) { // TODO Auto-generated catch
+			 * block e.printStackTrace(); } } }).start();
+			 */
 			doAdd();
 			lock.unLock();
 		}
