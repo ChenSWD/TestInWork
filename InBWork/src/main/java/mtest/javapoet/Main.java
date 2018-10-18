@@ -2,6 +2,7 @@ package mtest.javapoet;
 
 import java.io.IOException;
 
+import javax.annotation.processing.AbstractProcessor;
 import javax.lang.model.element.Modifier;
 
 import com.squareup.javapoet.FieldSpec;
@@ -16,7 +17,6 @@ public class Main {
 	public static void main(String[] args) {
 		FieldSpec fiel = FieldSpec.builder(TypeName.BOOLEAN, "chen", Modifier.PUBLIC, Modifier.STATIC)
 				.initializer("$L", false).build();
-
 		MethodSpec main = MethodSpec.methodBuilder("main").addModifiers(Modifier.PUBLIC, Modifier.STATIC)
 				.returns(void.class).addParameter(String[].class, "args")
 				.addStatement("$T.out.println($S)", System.class, "Hello, JavaPoet!").build();
@@ -24,9 +24,9 @@ public class Main {
 		TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld").addModifiers(Modifier.PUBLIC, Modifier.FINAL)
 				.addMethod(main).addField(fiel).build();
 
-		JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld).build();
+		JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld).addFileComment(" This codes are generated automatically. Do not modify!").build();
 
-		try {
+		try { 
 			javaFile.writeTo(System.out);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
